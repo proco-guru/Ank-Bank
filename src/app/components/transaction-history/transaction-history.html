@@ -1,0 +1,42 @@
+<form>
+
+    <select [(ngModel)]="selectedType" name="type">
+        <option value="All">All</option>
+        <option value="CREDIT">Credit</option>
+        <option value="DEBIT">Debit</option>
+    </select>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Balance After</th>
+                <th>Txn Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let txn of filteredTransactions; let i = index; trackBy: trackByTxnId">
+                <td>{{ i + 1 }}</td>
+                <td>{{ txn.date | date:'dd MMM yyyy' }}</td>
+                <td [ngStyle]="{ 'color': txn.type === 'CREDIT' ? '#00873c' : '#d32f2f' }">
+                    {{ txn.type === 'CREDIT' ? '+' : '-' }}{{ txn.amount | currency:'INR':'symbol':'1.0-0' }}
+                </td>
+                <td>{{ txn.balanceAfter | currency:'INR':'symbol':'1.0-0' }}</td>
+                <td>{{ txn.type }}</td>
+                <td>
+                    <span [ngClass]="{
+                        'badge-success': txn.status === 'SUCCESS',
+                        'badge-pending': txn.status === 'PENDING',
+                        'badge-failed':  txn.status === 'FAILED'
+                    }">
+                        {{ txn.status }}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</form>
