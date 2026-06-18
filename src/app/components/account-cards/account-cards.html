@@ -1,0 +1,68 @@
+<div class="account-card">
+
+    <!-- Card Header -->
+    <div class="card-header">
+        <div class="bank-info">
+            <h2 class="bank-name">🏦 SecureBank</h2>
+            <span class="account-type">{{ account.accountType }} Account</span>
+        </div>
+        <!-- Status badge — class changes based on isActive -->
+        <span [class]="getStatusClass()">
+            {{ account.isActive ? 'Active' : 'Inactive' }}
+        </span>
+    </div>
+
+    <!-- Account Holder -->
+    <div class="holder-section">
+        <p class="label">Account Holder</p>
+        <p class="value">{{ account.holderName }}</p>
+    </div>
+
+    <!-- Account Number — masked -->
+    <div class="holder-section">
+        <p class="label">Account Number</p>
+        <p class="value account-number">{{ getMaskedAccountNumber() }}</p>
+    </div>
+
+    <!-- Balance Section -->
+    <div class="balance-section">
+        <p class="label">Available Balance</p>
+        <div class="balance-row">
+
+            <!-- Show balance OR asterisks based on isBalanceVisible -->
+            <h1 class="balance" *ngIf="isBalanceVisible">
+                <!-- ₹{{ account.balance | number:'1.2-2' }} -->
+                ₹{{FormattedBalance()}}
+            </h1>
+            <h1 class="balance hidden" *ngIf="!isBalanceVisible">
+                ₹ ••••••
+            </h1>
+
+            <!-- Toggle button — calls toggleBalanceVisibility() on click -->
+            <button class="toggle-btn" (click)="toggleBalanceVisibility()">
+                {{ isBalanceVisible ? '🙈 Hide' : '👁 Show' }}
+            </button>
+
+        </div>
+    </div>
+    <!-- recent Trxn count -->
+    <div class="holder-section">
+        <p class="label">Recent Transactions Count</p>
+        <p class="value account-number">{{ transactionCount }}</p>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="card-footer">
+        <div>
+            <p class="label">IFSC Code</p>
+            <p class="value">{{ account.ifscCode }}</p>
+        </div>
+        <div>
+            <p class="label">Last Updated</p>
+            <!-- The date pipe formats the Date object into readable text -->
+            <p class="value">{{ account.lastUpdated | date:'dd MMM yyyy, hh:mm a' }}</p>
+        </div>
+    </div>
+
+</div>

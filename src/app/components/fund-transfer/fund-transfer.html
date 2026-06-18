@@ -1,0 +1,66 @@
+<div class="transfer-wrapper">
+    <div class="transfer-card">
+        <div class="transfer-header">
+            <h2>Fund Transfer</h2>
+            <p>Send money safely and instantly</p>
+        </div>
+
+        <form class="transfer-form">
+            <!-- Beneficiary Name -->
+            <div class="form-group">
+                <label for="beneficiaryName">Beneficiary Name</label>
+                <input id="beneficiaryName" type="text" [(ngModel)]="beneficiaryName" name="beneficiaryName"
+                    placeholder="Enter full name" />
+            </div>
+
+            <!-- Beneficiary Account -->
+            <div class="form-group">
+                <label for="beneficiaryAccount">Account Number</label>
+                <input id="beneficiaryAccount" type="text" [(ngModel)]="beneficiaryAccount" name="beneficiaryAccount"
+                    placeholder="Enter bank account number" />
+            </div>
+
+            <!-- Transfer Amount & Type Row -->
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="transferAmount">Amount (INR)</label>
+                    <input id="transferAmount" type="number" [(ngModel)]="transferAmount" name="transferAmount"
+                        placeholder="0.00" />
+                </div>
+
+                <div class="form-group col">
+                    <label for="transferType">Transfer Mode</label>
+                    <select id="transferType" [(ngModel)]="selectedTransferType" name="transferType">
+                        <option *ngFor="let type of transferType" [value]="type">
+                            {{ type }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button type="button" (click)="initiateTransaction()" [disabled]="!isFormValid" class="btn-submit">Initiate
+                Transfer</button>
+            <button type="button" (click)="clearForm()" class="btn-submit"> Clear</button>
+
+        </form>
+        <!-- ADD THIS — live preview, updates on every keystroke, NO button needed -->
+        <div class="live-preview" *ngIf="beneficiaryName || transferAmount">
+            <p>
+                Transferring ₹{{ transferAmount || 0 }} to {{ beneficiaryName || '...' }}
+                via {{ selectedTransferType }}
+            </p>
+        </div>
+
+        <!-- Transfer Summary (Live Preview) -->
+        <div class="transfer-summary" *ngIf="isTxnSuccess">
+            <h4>Transaction Summary</h4>
+            <div class="summary-details">
+                <p><strong>To:</strong> {{ beneficiaryName || '—' }}</p>
+                <p><strong>Account:</strong> {{ beneficiaryAccount || '—' }}</p>
+                <p><strong>Amount:</strong> ₹{{ transferAmount | number:'1.2-2' }}</p>
+                <p><strong>Method:</strong> <span class="badge">{{ selectedTransferType }}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
