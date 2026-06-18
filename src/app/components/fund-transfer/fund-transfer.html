@@ -57,7 +57,7 @@
             <h4>Transaction Summary</h4>
             <div class="summary-details">
                 <p><strong>To:</strong> {{ beneficiaryName || '—' }}</p>
-                <p><strong>Account:</strong> {{ beneficiaryAccount || '—' }}</p>
+                <p><strong>Account:</strong> {{ (beneficiaryAccount || '—') |maskedAccountPipe }}</p>
                 <p><strong>Amount:</strong> ₹{{ transferAmount | number:'1.2-2' }}</p>
                 <p><strong>Method:</strong> <span class="badge">{{ selectedTransferType }}</span></p>
             </div>

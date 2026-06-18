@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MaskedAccountPipe } from '../../pipes/masked-account-pipe-pipe';
 @Component({
   selector: 'app-fund-transfer',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MaskedAccountPipe],
   templateUrl: './fund-transfer.html',
   styleUrl: './fund-transfer.css',
 })
