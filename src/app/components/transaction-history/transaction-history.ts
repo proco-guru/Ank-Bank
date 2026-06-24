@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Transaction, TransactionService } from '../../services/transaction-service';
 
@@ -9,7 +9,7 @@ import { Transaction, TransactionService } from '../../services/transaction-serv
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
-export class TransactionHistory {
+export class TransactionHistory implements OnDestroy {
   transactions!: Transaction[];
   //append dummy data for now
   txnDetail: Transaction = {
@@ -47,5 +47,9 @@ export class TransactionHistory {
     //to append txn
     this.transactionService.addTransaction(this.txnDetail);
     this.transactions = this.transactionService.getTransactions(); //to get updated/latest txns record
+  }
+
+  ngOnDestroy() {
+    console.log('TransactionHistory destroyed');
   }
 }
