@@ -6,6 +6,7 @@ import { FormControl, FormsModule } from '@angular/forms';
 import { TransactionHistory } from './components/transaction-history/transaction-history';
 import { AccountBalanceWidget } from './components/account-balance-widget/account-balance-widget';
 import { CommonModule } from '@angular/common';
+import { Customers } from './components/customers/customers';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     TransactionHistory,
     AccountBalanceWidget,
+    Customers,
     CommonModule,
   ],
   templateUrl: './app.html',
