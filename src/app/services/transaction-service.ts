@@ -15,6 +15,7 @@ export interface Transaction {
   providedIn: 'root',
 })
 export class TransactionService {
+  //sample API response
   private transactions: Transaction[] = [
     {
       txnId: 1001,
