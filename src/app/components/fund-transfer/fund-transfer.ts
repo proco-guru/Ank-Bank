@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaskedAccountPipe } from '../../pipes/masked-account-pipe-pipe';
+import { CustomerService } from '../../services/customer-service';
 @Component({
   selector: 'app-fund-transfer',
   imports: [FormsModule, CommonModule, MaskedAccountPipe],
   templateUrl: './fund-transfer.html',
   styleUrl: './fund-transfer.css',
 })
-export class FundTransfer {
-  constructor() {}
+export class FundTransfer implements OnInit {
+  constructor(public customerService: CustomerService) {}
   beneficiaryName: string = '';
   beneficiaryAccount: string = ''; // Best practice: strings prevent leading zero truncation in HTML inputs
   transferAmount: number = 0;
@@ -20,6 +21,12 @@ export class FundTransfer {
   //initate the txn
   initiateTransaction(): void {
     this.isTxnSuccess = true;
+  }
+
+  ngOnInit(): void {
+    this.customerService.getUser().subscribe((user) => {
+      console.log('user in fund xfer', user);
+    });
   }
 
   //to clear the form

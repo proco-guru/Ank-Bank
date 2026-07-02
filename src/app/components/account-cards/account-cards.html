@@ -15,7 +15,11 @@
     <!-- Account Holder -->
     <div class="holder-section">
         <p class="label">Account Holder</p>
-        <p class="value">{{ account.holderName }}</p>
+        <select name="accountUser" id="accountUser" (change)="onSelectChange($event)">
+            <option *ngFor="let one of accountDetails" [value]="one.id">{{ one.name }}</option>
+        </select>
+
+        <!-- <p class="value">{{ account.holderName }}</p> -->
     </div>
 
     <!-- Account Number — masked -->
