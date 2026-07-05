@@ -18,6 +18,7 @@ import { Customers } from './components/customers/customers';
     AccountBalanceWidget,
     Customers,
     CommonModule,
+    FormsModule,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

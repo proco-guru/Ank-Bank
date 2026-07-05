@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 //defining API response model
 export interface CustomerDetails {
@@ -39,6 +39,38 @@ export interface Company {
 })
 export class CustomerService {
   constructor(private http: HttpClient) {}
+
+  public currentUser = new BehaviorSubject<CustomerDetails>({
+    id: 1,
+    name: 'Leanne Graham',
+    username: 'Bret',
+    email: 'Sincere@april.biz',
+    address: {
+      street: 'Kulas Light',
+      suite: 'Apt. 556',
+      city: 'Gwenborough',
+      zipcode: '92998-3874',
+      geo: {
+        lat: '-37.3159',
+        lng: '81.1496',
+      },
+    },
+    phone: '1-770-736-8031 x56442',
+    website: 'hildegard.org',
+    company: {
+      name: 'Romaguera-Crona',
+      catchPhrase: 'Multi-layered client-server neural-net',
+      bs: 'harness real-time e-markets',
+    },
+  });
+
+  setUser(user: CustomerDetails) {
+    this.currentUser.next(user);
+  }
+
+  getUser(): Observable<CustomerDetails> {
+    return this.currentUser.asObservable();
+  }
 
   //url for specific module
   private usersBaseApi = `${environment.apiBaseURL}/users`;
