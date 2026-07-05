@@ -323,7 +323,6 @@ export class AccountCards implements OnInit, OnChanges {
   onSelectChange(event: any) {
     //fetch selected value data from the list using id
     let selectedUser = this.accountDetails.find((x) => x.id == event.target.value);
-    console.log('onSelectChange', selectedUser, event.target.value);
     if (selectedUser) {
       this.customerService.setUser(selectedUser);
     }
@@ -337,8 +336,6 @@ export class AccountCards implements OnInit, OnChanges {
         if (accDetails.length > 0) {
           this.selectedAccount = accDetails[0];
         }
-
-        console.log('accountDetails on init', accDetails, this.accountDetails);
       },
       error: (err) => {
         console.error(err);
