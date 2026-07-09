@@ -1,10 +1,15 @@
-<app-account-cards></app-account-cards>
+<!-- <app-account-cards></app-account-cards>
 <app-fund-transfer></app-fund-transfer>
-<!-- added to disaply/call component:  on the btn click,and mthod destry shoul get called  -->
 <button (click)="toggleTxnHistoryDetails()">{{ isTxnHistoryVisible ? 'hide' : 'show' }}</button>
 <div *ngIf="isTxnHistoryVisible">
     <app-transaction-history></app-transaction-history>
     <app-account-balance-widget></app-account-balance-widget>
-</div>
+</div> -->
 
-<app-customers></app-customers>
+<!-- <app-customers></app-customers> -->
+<app-layout *ngIf="isLoggedIn else anonymous"></app-layout>
+
+<ng-template #anonymous>
+    Please sign in.
+</ng-template>
+<router-outlet></router-outlet>
