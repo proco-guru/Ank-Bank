@@ -22,14 +22,10 @@ export class AccountBalanceWidget implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     //setting interval of 5sec
-    this.pollingInterval = setInterval(() => {
-      console.log('checking for updates...');
-    }, 5000);
+    this.pollingInterval = setInterval(() => {}, 5000);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges fired:', changes);
-
     if (changes['balance']) {
       console.log(changes['balance'].currentValue + 'Curr val');
       console.log(changes['balance'].firstChange + 'first val');
@@ -47,7 +43,6 @@ export class AccountBalanceWidget implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     if (this.pollingInterval) {
       clearInterval(this.pollingInterval);
-      console.log('Removed interval...........');
     }
   }
   triggerDebitAnimation(): void {
