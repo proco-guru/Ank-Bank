@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Transaction, TransactionService } from '../../services/transaction-service';
+import { Transaction, TransactionService } from '../../../services/transaction-service';
 import { Subscription } from 'rxjs';
-import { TransferNotificationService } from '../../services/transfer-notification-service';
+import { TransferNotificationService } from '../../../services/transfer-notification-service';
 
 @Component({
   selector: 'app-transaction-history',
