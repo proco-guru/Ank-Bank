@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Transaction, TransactionService } from '../../services/transaction-service';
+import { Transaction, TransactionService } from '../../../services/transaction-service';
 import { Subscription } from 'rxjs';
-import { TransferNotificationService } from '../../services/transfer-notification-service';
+import { TransferNotificationService } from '../../../services/transfer-notification-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction-history',
@@ -11,7 +12,9 @@ import { TransferNotificationService } from '../../services/transfer-notificatio
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
-export class TransactionHistory implements OnDestroy {
+export class TransactionHistory implements OnInit, OnDestroy {
+  urlParamId: string = '';
+  selectedTxnId: number = 0;
   transactions!: Transaction[];
   //append dummy data for now
   txnDetail: Transaction = {
@@ -26,10 +29,17 @@ export class TransactionHistory implements OnDestroy {
   private subscriptions: Subscription[] = [];
   bankBalance: number = 0;
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private transactionService: TransactionService,
     private transactionNotificationService: TransferNotificationService,
   ) {}
   ngOnInit() {
+    //method is to get the id from URL
+    this.urlParamId = this.route.snapshot.paramMap.get('id') ?? '';
+    console.log('++++++++ID printed', this.urlParamId);
+
+    //---get txn data from services
     this.transactions = this.transactionService.getTransactions();
 
     //subscribing to behaviouralSubject to get the transaction status
@@ -71,5 +81,12 @@ export class TransactionHistory implements OnDestroy {
     // unsubscribe obsrvable
     this.subscriptions.forEach((sub) => sub.unsubscribe());
     console.log('objct is unsubsribed');
+  }
+
+  //--method get called on txnRow click, navigates to txn Page along with selected txnId as param
+  onTransactionRowClick(txnId: number) {
+    this.selectedTxnId = txnId;
+    console.log('++++++++ Txn ID', this.selectedTxnId);
+    this.router.navigate(['/transaction', txnId]); //navigating to the URL with param
   }
 }

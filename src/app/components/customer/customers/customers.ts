@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CustomerDetails, CustomerService } from '../../services/customer-service';
+import { CustomerDetails, CustomerService } from '../../../services/customer-service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 

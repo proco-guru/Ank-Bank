@@ -23,7 +23,7 @@ export class Login {
       localStorage.setItem('isCustLogin', 'true');
 
       // Read returnUrl — fall back to 'customer' if not present
-      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/customer';
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || 'dashboard';
       this.router.navigateByUrl(returnUrl);
       console.log('success to login');
     } else {

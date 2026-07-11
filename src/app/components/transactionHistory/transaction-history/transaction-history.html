@@ -18,7 +18,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let txn of filteredTransactions; let i = index; trackBy: trackByTxnId">
+            <tr *ngFor="let txn of filteredTransactions; let i = index; trackBy: trackByTxnId"
+                (click)="onTransactionRowClick(txn.txnId)">
                 <td>{{ i + 1 }}</td>
                 <td>{{ txn.date | date:'dd MMM yyyy' }}</td>
                 <td [ngStyle]="{ 'color': txn.type === 'CREDIT' ? '#00873c' : '#d32f2f' }">

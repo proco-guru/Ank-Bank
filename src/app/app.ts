@@ -2,7 +2,7 @@ import { Component, NgModule, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Layout } from './components/layout/layout';
+import { Layout } from './components/layouts/layout/layout';
 // import { AccountCards } from './components/account-cards/account-cards';
 // import { FundTransfer } from './components/fund-transfer/fund-transfer';
 // import { TransactionHistory } from './components/transaction-history/transaction-history';
