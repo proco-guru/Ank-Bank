@@ -3,6 +3,7 @@
     <a routerLink="/login">Login</a><br>
     <a routerLink="/fund-transfer">Fund Transfer</a><br>
     <a routerLink="/customer">Customers</a><br>
-    <a routerLink="/transaction">Transaction</a><br>
+    <a routerLink="/dashboard">Dashboard</a><br>
+    <a [routerLink]="['/transaction', '1001']">Transaction</a>
     <button (click)="logout()">logout</button>
 </div><br><br>
