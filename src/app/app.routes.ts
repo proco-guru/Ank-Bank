@@ -95,5 +95,13 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'reactive-fund-transfer',
+    loadComponent: () =>
+      import('./components/fundTransferReactive/fund-transfer-reactive').then(
+        (c) => c.FundTransferReactive,
+      ),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '/login' },
 ];
