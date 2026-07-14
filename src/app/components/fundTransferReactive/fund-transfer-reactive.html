@@ -1,0 +1,66 @@
+<p>login-reactive works!</p>
+<div>
+    <form [formGroup]="amountTransfer" (ngSubmit)="onTransfer()">
+        <div class="form-group-par">
+            <label>Bene Name</label>
+            <input type="text" formControlName="beneficiaryName" name="beneficiaryName">
+            <!-- Error messages — only show when field is invalid AND touched (user has interacted) -->
+            <div *ngIf="beneficiaryName.invalid && beneficiaryName.touched">
+                <span *ngIf="beneficiaryName.errors?.['required']">beneficiary Name is required.</span>
+
+                <span *ngIf="beneficiaryName.errors?.['isSpecialChar']">
+                    Special chars not allowed.
+                </span>
+                <span *ngIf="beneficiaryName.errors?.['minlength']">
+                    Minimum {{ beneficiaryName.errors?.['minlength']?.requiredLength }} characters required.
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Beneficiary Account</label>
+                <input type="text" formControlName="beneficiaryAccount" name="beneficiaryAccount">
+                <!-- Error messages — only show when field is invalid AND touched (user has interacted) -->
+                <div *ngIf="beneficiaryAccount.invalid && beneficiaryAccount.touched">
+                    <span *ngIf="beneficiaryAccount.errors?.['required']">beneficiary Name is required.</span><span
+                        *ngIf="beneficiaryAccount.errors?.['pattern']">
+                        Account number must contain 9-18 digits.
+                    </span><span *ngIf="amountTransfer.errors?.['sameAccount']">
+                        Beneficiary account cannot be the same as your own account.
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ifsc Code</label>
+                <input type="text" formControlName="ifscCode" name="ifscCode">
+                <!-- Error messages — only show when field is invalid AND touched (user has interacted) -->
+                <div *ngIf="ifscCode.invalid && ifscCode.touched">
+                    <span *ngIf="ifscCode.errors?.['required']">ifscCode is required.</span>
+                    <span *ngIf="ifscCode.errors?.['invalidIfsc']">Invalid IFSC format.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" formControlName="amount" name="amount">
+                <!-- Error messages — only show when field is invalid AND touched (user has interacted) -->
+                <div *ngIf="amount.invalid && amount.touched">
+                    <span *ngIf="amount.errors?.['required']">amount is required.</span>
+                    <span *ngIf="amount.errors?.['min']">
+                        Amount should be at least {{ amount.errors?.['min']?.min }}
+                    </span>
+                    <span *ngIf="amount.errors?.['max']">
+                        Maximum allowed amount is {{ amount.errors?.['max']?.max }}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Transfer Type</label>
+                <input type="text" formControlName="transferType" name="transferType">
+                <!-- Error messages — only show when field is invalid AND touched (user has interacted) -->
+                <div *ngIf="transferType.invalid && transferType.touched">
+                    <span *ngIf="transferType.errors?.['required']">Transfer type is required.</span>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Transfer</button>
+
+    </form>
+</div>

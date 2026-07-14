@@ -1,6 +1,6 @@
 import { Component, NgModule, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Layout } from './components/layouts/layout/layout';
 // import { AccountCards } from './components/account-cards/account-cards';
