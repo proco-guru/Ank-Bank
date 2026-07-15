@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Transaction, TransactionService } from '../../../services/transaction-service';
+import {
+  Transaction,
+  TransactionService,
+} from '../../../services/tansactionService/transaction-service';
 import { Subscription } from 'rxjs';
-import { TransferNotificationService } from '../../../services/transfer-notification-service';
+import { TransferNotificationService } from '../../../services/transferNotification/transfer-notification-service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
