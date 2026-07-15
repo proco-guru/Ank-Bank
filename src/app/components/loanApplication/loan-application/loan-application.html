@@ -1,0 +1,63 @@
+<p>loan-application works!</p>
+<div>
+
+    <form [formGroup]="loanAppForm" (ngSubmit)="applyLoan()">
+        <div>
+            <label name="applicantName">applicant Name</label>
+            <input type="text" formControlName="applicantName" name="applicantName">
+            <div *ngIf="applicantName?.invalid && applicantName?.touched">
+                <span *ngIf="applicantName?.errors?.['required']">applicant name is required</span>
+                <span *ngIf="applicantName?.errors?.['minlength']">min
+                    {{applicantName?.errors?.['minlength']?.requiredLength}}
+                    length is required</span>
+                <span *ngIf="applicantName?.errors?.['isSpecialChar']">special char not allowed</span>
+            </div>
+        </div>
+        <div>
+            <label name="loanAmount">loanAmount</label>
+            <input type="number" formControlName="loanAmount" name="loanAmount">
+            <small>Maximum eligible loan: {{loanAmount?.errors?.['max']?.max
+                | currency:'INR':'symbol':'1.0-0' }}</small>
+            <div *ngIf="loanAmount?.invalid && loanAmount?.touched">
+                <span *ngIf="loanAmount?.errors?.['required']">loan amount is required</span>
+                <span *ngIf="loanAmount?.errors?.['min']">min {{loanAmount?.errors?.['min']?.min}}
+                    length is required</span>
+                <span *ngIf="loanAmount?.errors?.['max']">Maximum allow loan: {{loanAmount?.errors?.['max']?.max
+                    |currency:'INR':'symbol':'1.0-0' }}
+                    allowed</span>
+            </div>
+        </div>
+        <div>
+            <label name="loanType">loanType</label>
+            <select formControlName="loanType" name="loanType">
+                <option value="HOME">Home Loan</option>
+                <option value="PERSONAL">Personal Loan</option>
+                <option value="VEHICLE">Vehicle Loan</option>
+                <option value="EDUCATION">Education Loan</option>
+            </select>
+        </div>
+        <div>
+            <label name="tenure">tenure</label>
+            <input type="number" formControlName="tenure" name="tenure">
+            <div *ngIf="tenure?.invalid && tenure?.touched">
+                <span *ngIf="tenure?.errors?.['required']">tenure is required</span>
+                <span *ngIf="tenure?.errors?.['min']">min {{tenure?.errors?.['min']?.min}}
+                    is required</span>
+                <span *ngIf="tenure?.errors?.['max']">max {{tenure?.errors?.['max']?.max}}
+                    is required</span>
+            </div>
+        </div>
+        <div>
+            <label name="annualIncome">annualIncome</label>
+            <input type="number" formControlName="annualIncome" name="annualIncome">
+            <div *ngIf="annualIncome?.invalid && annualIncome?.touched">
+                <span *ngIf="annualIncome?.errors?.['required']">annual Income is required</span>
+                <span *ngIf="annualIncome?.errors?.['min']">min {{annualIncome?.errors?.['min']?.min}}
+                    is required</span>
+            </div>
+        </div>
+        <br>
+        <button type="submit" [style.background]="isSubmitting ? 'green' : 'transparent'">Apply Loan</button>
+
+    </form>
+</div>
