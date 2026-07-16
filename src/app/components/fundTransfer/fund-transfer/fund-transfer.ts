@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaskedAccountPipe } from '../../../pipes/masked-account-pipe-pipe';
-import { CustomerService } from '../../../services/customer-service';
-import { TransactionService } from '../../../services/transaction-service';
-import { TransferNotificationService } from '../../../services/transfer-notification-service';
+import { CustomerService } from '../../../services/customerService/customer-service';
+import { TransactionService } from '../../../services/tansactionService/transaction-service';
+import { TransferNotificationService } from '../../../services/transferNotification/transfer-notification-service';
 @Component({
   selector: 'app-fund-transfer',
   imports: [FormsModule, CommonModule, MaskedAccountPipe],

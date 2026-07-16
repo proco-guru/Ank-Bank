@@ -1,6 +1,9 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomerDetails, CustomerService } from '../../../services/customer-service';
+import {
+  CustomerDetails,
+  CustomerService,
+} from '../../../services/customerService/customer-service';
 import { FormsModule } from '@angular/forms';
 
 // This interface defines the shape of our account data
