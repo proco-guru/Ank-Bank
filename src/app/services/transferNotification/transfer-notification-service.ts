@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class TransferNotificationService {
   //creating behavioural Subject with default initial val
-  private balanceSource = new BehaviorSubject<number>(0);
+  private balanceSource = new BehaviorSubject<number>(200);
   // Components subscribe to this to react to EVERY change, including the current value immediately
   balance$: Observable<number> = this.balanceSource.asObservable();
 

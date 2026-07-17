@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 //define txnType
 export interface Transaction {
@@ -73,6 +74,14 @@ export class TransactionService {
     },
   ];
 
+  private selectedTxnId = new BehaviorSubject<number>(1);
+  custSelectedTxnId$ = this.selectedTxnId.asObservable();
+
+  //set SelectedTxn by cust
+  setSelectedTxn(txnId: number): void {
+    console.log('setting Id:', txnId);
+    this.selectedTxnId.next(txnId);
+  }
   //retrun the copy of txn array
   getTransactions(): Transaction[] {
     return [...this.transactions];

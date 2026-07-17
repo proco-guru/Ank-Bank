@@ -86,6 +86,14 @@ export const routes: Routes = [
           ),
       },
       {
+        //setting child path eg. dashboard/account-cards
+        path: 'account-cards/:id',
+        loadComponent: () =>
+          import('./components/accountCards/account-cards/account-cards').then(
+            (c) => c.AccountCards,
+          ),
+      },
+      {
         //setting child path eg. dashboard/fund-transfer
         path: 'fund-transfer',
         loadComponent: () =>

@@ -1,0 +1,68 @@
+<p>account-summary-card works!</p>
+<h3>{{moduleTitle}}</h3>
+<div class="table-container" (click)="onCardSelect(currentAccount)" [ngClass]="{'bg-selected':isSelected}">
+    <div>//////////////////////////------Currnt acc Details-------//////////////////////////////////</div>
+    <div class="account-card" [class.disabled-card]="!currentAccount.isActive">
+        <div class=" card-header">
+            <div class="account-title-group">
+                <h2>{{ currentAccount.holderName }}</h2>
+                <span class="badge type-{{ currentAccount.accountType.toLowerCase() }}">
+                    {{ currentAccount.accountType }} Account
+                </span>
+            </div>
+            <!-- Dynamic status tag indicator -->
+            <span class="status-indicator" [class.active]="currentAccount.isActive"
+                [class.inactive]="!currentAccount.isActive">
+                {{ currentAccount.isActive ? 'Active' : 'Inactive' }}
+            </span>
+        </div>
+
+        <div class="card-body">
+            <div class="info-row">
+                <span class="label">Account Number</span>
+                <span class="value mono-text">{{ currentAccount.accountNumber |maskedAccountPipe }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">IFSC Code</span>
+                <span class="value mono-text">{{ currentAccount.ifscCode }}</span>
+            </div>
+
+            <div class="balance-display">
+                <span class="balance-label">Available Balance</span>
+                <!-- Formats numeric balance safely (e.g. ₹24,500.00) -->
+                <span class="balance-amount">{{ currentAccount.balance | currency:'INR':'symbol':'1.2-2' }}</span>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <span class="timestamp">Last Updated: {{ currentAccount.lastUpdated | date:'medium' }}</span>
+        </div>
+    </div>
+    <div>isSelected: {{isSelected}}</div>
+
+</div>
+<div>//////////////////////////------Card Details-------//////////////////////////////////</div>
+<div>
+    <table border="1">
+        <tr>
+            <th>BeneNum</th>
+            <th>Sender Number</th>
+            <th>Amount</th>
+            <th>Txn Date</th>
+        </tr>
+        <tr [ngClass]="{
+      'bg-success': txn.status === 'SUCCESS',
+      'bg-pending': txn.status === 'PENDING',
+      'bg-failed': txn.status === 'FAILED'
+    }" *ngFor="let txn of transactionsHistoryList; trackBy: trackByTxn" (click)="onTransactionClicked(txn)">
+
+            <td> {{ txn.beneAccNumber }}</td>
+
+            <td> {{txn.senderAccNumber | maskedAccountPipe}}</td>
+            <td> {{txn.amount | currency:'INR':'symbol':'1.0-0'}}</td>
+            <td>{{txn.txnDate | date }}</td>
+        </tr>
+    </table>
+
+</div>

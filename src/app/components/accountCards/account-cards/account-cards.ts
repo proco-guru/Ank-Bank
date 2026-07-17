@@ -1,14 +1,18 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   CustomerDetails,
   CustomerService,
 } from '../../../services/customerService/customer-service';
 import { FormsModule } from '@angular/forms';
+import { AccountSummaryCard } from '../../balance/account-summary-card/account-summary-card';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TransactionService } from '../../../services/tansactionService/transaction-service';
+import { Subscription } from 'rxjs';
 
 // This interface defines the shape of our account data
 // Exactly like a DTO in your .NET backend
-interface BankAccount {
+export interface BankAccount {
   accountNumber: string;
   holderName: string;
   balance: number;
@@ -18,7 +22,7 @@ interface BankAccount {
   lastUpdated: Date;
 }
 
-interface AmountTxns {
+export interface AmountTxns {
   txnId: number;
   senderAccNumber: string;
   beneAccNumber: string;
@@ -26,19 +30,24 @@ interface AmountTxns {
   amount: number;
   ifscCode: string;
   txnDate: Date;
+  status: 'SUCCESS' | 'PENDING' | 'FAILED';
 }
 
 @Component({
   selector: 'app-account-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AccountSummaryCard],
   templateUrl: './account-cards.html',
   styleUrl: './account-cards.css',
 })
-export class AccountCards implements OnInit, OnChanges {
+export class AccountCards implements OnInit, OnChanges, OnDestroy {
+  isSelected: boolean = false;
+  selectedTxn: AmountTxns | undefined;
+  private subscription: Subscription[] = [];
+  urlId: number = 0;
   // This is the data our template will display
   // In a real app this would come from an API via a Service
   account: BankAccount = {
-    accountNumber: 'SB-9876543210',
+    accountNumber: 'SB-98765432123',
     holderName: 'Ankita Pawar',
     balance: 425750.5,
     accountType: 'Savings',
@@ -51,30 +60,33 @@ export class AccountCards implements OnInit, OnChanges {
   recentTransactions: AmountTxns[] = [
     {
       txnId: 1,
-      senderAccNumber: '98765432123',
+      senderAccNumber: 'SB-98765432123',
       beneAccNumber: '34567898765',
       beneName: 'ParsuRam',
       amount: 500,
       ifscCode: 'HDFC0001234',
       txnDate: new Date(),
+      status: 'SUCCESS',
     },
     {
       txnId: 2,
-      senderAccNumber: '98765453123',
+      senderAccNumber: 'SB-9865453123',
       beneAccNumber: '34567898752',
       beneName: 'anki',
       amount: 590,
       ifscCode: 'HDFC0001234',
       txnDate: new Date(),
+      status: 'PENDING',
     },
     {
       txnId: 3,
-      senderAccNumber: '98752332123',
+      senderAccNumber: 'SB-98752332123',
       beneAccNumber: '3456498765',
       beneName: 'Kailu',
       amount: 890,
       ifscCode: 'HDFC0001234',
       txnDate: new Date(),
+      status: 'FAILED',
     },
   ];
 
@@ -313,11 +325,34 @@ export class AccountCards implements OnInit, OnChanges {
   ];
   public selectedAccount!: CustomerDetails;
 
-  constructor(public customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private txnService: TransactionService,
+  ) {}
 
   ngOnInit(): void {
     this.getCustomers();
+    this.subscription.push(
+      this.route.params.subscribe((params) => {
+        this.urlId = Number(params['id']);
+      }),
+    );
+    if (this.urlId) {
+      // Update data immediately
+      this.txnService.setSelectedTxn(this.urlId);
+      this.selectedTxn = this.recentTransactions.find((c) => c.txnId === this.urlId);
+    } else {
+      this.subscription.push(
+        this.txnService.custSelectedTxnId$.subscribe((txnId) => {
+          console.log('Default Txn id:', txnId);
+          this.selectedTxn = this.recentTransactions.find((c) => c.txnId === txnId);
+        }),
+      );
+    }
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.accountDetails = [...this.accountDetails];
@@ -379,5 +414,18 @@ export class AccountCards implements OnInit, OnChanges {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+  }
+
+  onCardSelection(cardSelect: BankAccount) {
+    console.log('selected card is :', cardSelect);
+  }
+
+  onTransactionClicked(selectedTxn: AmountTxns) {
+    console.log('selected txn is :', selectedTxn);
+    this.router.navigate(['/dashboard', 'account-cards', selectedTxn.txnId]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((x) => x.unsubscribe());
   }
 }

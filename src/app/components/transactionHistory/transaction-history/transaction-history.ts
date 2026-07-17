@@ -40,7 +40,7 @@ export class TransactionHistory implements OnInit, OnDestroy {
   ngOnInit() {
     //method is to get the id from URL
     this.urlParamId = this.route.snapshot.paramMap.get('id') ?? '';
-    console.log('++++++++ID printed', this.urlParamId);
+    console.log('++++++++routed to this loc.: URL para is: ', this.urlParamId);
 
     //---get txn data from services
     this.transactions = this.transactionService.getTransactions();

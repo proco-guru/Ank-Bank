@@ -68,5 +68,28 @@
             <p class="value">{{ account.lastUpdated | date:'dd MMM yyyy, hh:mm a' }}</p>
         </div>
     </div>
+</div>
+<app-account-summary-card [transactionsHistoryList]="recentTransactions" [isSelected]="isSelected"
+    [currentAccount]="account" (cardSelected)="onCardSelection($event)"
+    (transactionClicked)="onTransactionClicked($event)">
+</app-account-summary-card>
+<div>/////////////----Selected TXN------////////////</div>
+
+
+<div>
+    <table border="1">
+        <tr>
+            <th>BeneNum</th>
+            <th>Sender Number</th>
+            <th>Amount</th>
+            <th>Txn Date</th>
+        </tr>
+        <tr>
+            <td> {{ selectedTxn?.beneAccNumber }}</td>
+            <td> {{selectedTxn?.senderAccNumber }}</td>
+            <td> {{selectedTxn?.amount}}</td>
+            <td>{{selectedTxn?.txnDate }}</td>
+        </tr>
+    </table>
 
 </div>
