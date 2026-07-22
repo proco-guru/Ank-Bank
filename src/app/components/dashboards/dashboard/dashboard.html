@@ -5,4 +5,6 @@
 <main class="content-area">
     <!--  Child components  will render here -->
     <router-outlet></router-outlet>
+    <app-balance [txnList]="txnList" [currentBalance]="currentBalance"
+        (balanceUpdated)="onBalanceUpdated($event)"></app-balance>
 </main>

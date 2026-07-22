@@ -1,0 +1,21 @@
+// This interface defines the shape of our account data
+// Exactly like a DTO in your .NET backend
+export interface BankAccount {
+  accountNumber: string;
+  holderName: string;
+  balance: number;
+  accountType: 'Savings' | 'Current' | 'Salary';
+  ifscCode: string;
+  isActive: boolean;
+  lastUpdated: Date;
+}
+
+export interface AmountTxns {
+  txnId: number;
+  senderAccNumber: string;
+  beneAccNumber: string;
+  beneName: string;
+  amount: number;
+  ifscCode: string;
+  txnDate: Date;
+}
