@@ -119,5 +119,13 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'beneficiary',
+    loadComponent: () =>
+      import('./components/beneficiary/beneficiary-search/beneficiary-search').then(
+        (c) => c.BeneficiarySearch,
+      ),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '/login' },
 ];

@@ -11,10 +11,6 @@ export class Balance {
   @Input() currentBalance: number | undefined;
   @Input() txnList!: Transaction[];
 
-  // ngOnInit(): void {
-  //   console.log('---------------------------curr balance', this.currentBalance);
-  //   console.log('---------------------------txnList', this.txnList);
-  // }
   @Output() balanceUpdated = new EventEmitter<number>();
   updateBalance(): void {
     //retuning last tn balance
