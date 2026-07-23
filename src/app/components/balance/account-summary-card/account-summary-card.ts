@@ -2,7 +2,7 @@ import { booleanAttribute, Component, EventEmitter, Input, Output } from '@angul
 import { AmountTxns, BankAccount } from '../../accountCards/account-cards/account-cards';
 import { CommonModule } from '@angular/common';
 import { MaskedAccountPipe } from '../../../pipes/masked-account-pipe-pipe';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-summary-card',

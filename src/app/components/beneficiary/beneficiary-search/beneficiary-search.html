@@ -1,0 +1,85 @@
+<p>beneficiary-search works!</p>
+<label>beneSearch</label>
+<input type="text" [formControl]="beneSearch" name="beneSearch">
+<span *ngIf="beneSearch.errors?.['minlength'] && beneSearch.touched">
+    Minimum {{ beneSearch.errors?.['minlength']?.requiredLength }} characters required.
+</span>
+
+<div *ngIf="isSearching; else beneTableTemplate">
+    <h3>Serching.........</h3>
+</div>
+
+
+<ng-template #beneTableTemplate>
+
+    <div class="table-container">
+        <h2>Beneficiary Directory</h2>
+
+        <table class="beneficiary-table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Contact Info</th>
+                    <th>Location / Address</th>
+                    <th>Company Details</th>
+                    <!-- <th>Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                @for (bene of beneListDetails; track bene.id) {
+                <tr>
+                    <!-- 1. Basic Fields -->
+                    <td class="id-cell">{{ bene.id }}</td>
+                    <td class="bold-text">{{ bene.name }}</td>
+                    <td class="mono-text">@{{ bene.username }}</td>
+
+                    <!-- 2. Combined Contact Field -->
+                    <td>
+                        <div class="contact-box">
+                            <span class="email-text">✉️ {{ bene.email }}</span>
+                            <span class="phone-text">📞 {{ bene.phone }}</span>
+                            <a [href]="'http://' + bene.website" target="_blank" class="web-link">🌐 {{ bene.website
+                                }}</a>
+                        </div>
+                    </td>
+
+                    <!-- 3. Nested Address Fields safely handled -->
+                    <td>
+                        @if (bene.address) {
+                        <div class="address-box">
+                            <span>{{ bene.address.suite }}, {{ bene.address.street }}</span>
+                            <span class="city-text">{{ bene.address.city }} ({{ bene.address.zipcode }})</span>
+                        </div>
+                        } @else {
+                        <span class="no-data">No Address</span>
+                        }
+                    </td>
+
+                    <!-- 4. Nested Company Fields -->
+                    <td>
+                        @if (bene.company) {
+                        <div class="company-box">
+                            <span class="company-name">{{ bene.company.name }}</span>
+                            <span class="company-phrase">"${{ bene.company.catchPhrase }}"</span>
+                        </div>
+                        } @else {
+                        <span class="no-data">No Company</span>
+                        }
+                    </td>
+
+                    <!-- 5. Action Trigger -->
+                    <!-- <td>
+                    <button class="select-btn" (click)="onSelectBeneficiary(bene)">Select</button>
+                </td> -->
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="7" class="empty-row">No beneficiaries found matching your search term.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</ng-template>
