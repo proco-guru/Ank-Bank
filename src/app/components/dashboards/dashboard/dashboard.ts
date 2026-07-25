@@ -7,6 +7,7 @@ import {
 import { TransferNotificationService } from '../../../services/transferNotification/transfer-notification-service';
 import { combineLatest, of, Subscription } from 'rxjs';
 import { Balance } from '../../balance/balance/balance';
+import { CommonModule } from '@angular/common';
 
 export type AccDetails = {
   txnHistory: Transaction[];
@@ -15,7 +16,7 @@ export type AccDetails = {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink, RouterOutlet, Balance],
+  imports: [RouterLink, RouterOutlet, Balance, CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
