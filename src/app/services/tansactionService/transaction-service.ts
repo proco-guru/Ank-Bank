@@ -11,7 +11,16 @@ export interface Transaction {
   balanceAfter: number;
   status: 'SUCCESS' | 'PENDING' | 'FAILED';
 }
-
+export interface BulkTransferResult {
+  fromAccount: string;
+  transfers: {
+    beneficiaryName: string;
+    accountNumber: string;
+    amount: number;
+    ifscCode: string;
+    transferType: 'NEFT' | 'IMPS' | 'RTGS';
+  }[];
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -90,5 +99,27 @@ export class TransactionService {
   //update the trxn array using immutable form
   addTransaction(txn: Transaction): void {
     this.transactions = [...this.transactions, txn];
+  }
+
+  private currentBeneAccNum = new BehaviorSubject<string>('78966523569');
+  patchBeneAccNumVal$ = this.currentBeneAccNum.asObservable();
+
+  // Define your mock data matching the interface
+  sampleBulkTransferData: BulkTransferResult = {
+    fromAccount: 'SB-9876543210',
+    transfers: [
+      {
+        beneficiaryName: 'John Doe',
+        accountNumber: '123456789',
+        amount: 5000,
+        ifscCode: 'SBIN0001234',
+        transferType: 'NEFT',
+      },
+    ],
+  };
+
+  getMultiTransferData(): BulkTransferResult {
+    // Use curly braces to clone a single object instance safely
+    return { ...this.sampleBulkTransferData };
   }
 }
