@@ -7,6 +7,9 @@
 </div> -->
 
 <!-- <app-customers></app-customers> -->
+
+<!-- Global loading bar — shows for ANY HTTP request in progress -->
+<div class="global-loading-bar" *ngIf="isLoading$ | async"></div>
 <app-layout *ngIf="isLoggedIn else anonymous"></app-layout>
 
 <ng-template #anonymous>

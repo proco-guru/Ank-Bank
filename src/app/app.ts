@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Layout } from './components/layouts/layout/layout';
+import { Observable } from 'rxjs';
+import { Loading } from './services/loading/loading';
 // import { AccountCards } from './components/account-cards/account-cards';
 // import { FundTransfer } from './components/fund-transfer/fund-transfer';
 // import { TransactionHistory } from './components/transaction-history/transaction-history';
@@ -27,7 +29,11 @@ import { Layout } from './components/layouts/layout/layout';
   styleUrl: './app.css',
 })
 export class App {
+  isLoading$: Observable<boolean>;
   protected readonly title = signal('PracBank');
+  constructor(private loadingService: Loading) {
+    this.isLoading$ = this.loadingService.isLoading$;
+  }
 
   isTxnHistoryVisible: boolean = true;
 
