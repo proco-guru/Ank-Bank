@@ -127,5 +127,11 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'bulk-transfer',
+    loadComponent: () =>
+      import('./components/bulkTransfer/bulktransfer/bulktransfer').then((c) => c.Bulktransfer),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '/login' },
 ];
