@@ -1,11 +1,18 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   CustomerDetails,
   CustomerService,
 } from '../../../services/customerService/customer-service';
 import { FormsModule } from '@angular/forms';
-import { AccountSummaryCard } from '../../balance/account-summary-card/account-summary-card';
+import { AccountSummaryCard } from '../../account-summary-card/account-summary-card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../../services/tansactionService/transaction-service';
 import { Subscription } from 'rxjs';
@@ -330,27 +337,26 @@ export class AccountCards implements OnInit, OnChanges, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private txnService: TransactionService,
+    private crd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.getCustomers();
-    this.subscription.push(
-      this.route.params.subscribe((params) => {
-        this.urlId = Number(params['id']);
-      }),
-    );
-    if (this.urlId) {
-      // Update data immediately
-      this.txnService.setSelectedTxn(this.urlId);
-      this.selectedTxn = this.recentTransactions.find((c) => c.txnId === this.urlId);
-    } else {
-      this.subscription.push(
-        this.txnService.custSelectedTxnId$.subscribe((txnId) => {
-          console.log('Default Txn id:', txnId);
-          this.selectedTxn = this.recentTransactions.find((c) => c.txnId === txnId);
-        }),
-      );
-    }
+    const paramSub = this.route.params.subscribe((params) => {
+      this.urlId = Number(params['id']);
+      if (this.urlId) {
+        this.txnService.setSelectedTxn(this.urlId);
+        this.selectedTxn = this.recentTransactions.find((c) => c.txnId === this.urlId);
+        this.crd.markForCheck();
+      }
+    });
+    // Subscription 2 — BehaviorSubject, separate, not nested
+    const txnSub = this.txnService.custSelectedTxnId$.subscribe((txnId) => {
+      if (!this.urlId) {
+        this.selectedTxn = this.recentTransactions.find((c) => c.txnId === txnId);
+        this.crd.markForCheck();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
