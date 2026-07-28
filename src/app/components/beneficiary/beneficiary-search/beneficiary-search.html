@@ -28,7 +28,8 @@
                 </tr>
             </thead>
             <tbody>
-                @for (bene of beneListDetails; track bene.id) {
+                <!-- @for (bene of beneListDetails; track bene.id) { -->
+                @for (bene of beneListWithSignal(); track bene.id) {
                 <tr>
                     <!-- 1. Basic Fields -->
                     <td class="id-cell">{{ bene.id }}</td>

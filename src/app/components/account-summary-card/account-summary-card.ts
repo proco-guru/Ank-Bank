@@ -1,7 +1,15 @@
-import { booleanAttribute, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AmountTxns, BankAccount } from '../../accountCards/account-cards/account-cards';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { AmountTxns, BankAccount } from '../accountCards/account-cards/account-cards';
 import { CommonModule } from '@angular/common';
-import { MaskedAccountPipe } from '../../../pipes/masked-account-pipe-pipe';
+import { MaskedAccountPipe } from '../../pipes/masked-account-pipe-pipe';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +17,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, MaskedAccountPipe],
   templateUrl: './account-summary-card.html',
   styleUrl: './account-summary-card.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountSummaryCard {
   @Input({ required: true }) currentAccount!: BankAccount;
@@ -26,6 +35,7 @@ export class AccountSummaryCard {
   }
 
   onTransactionClicked(selectedTxn: AmountTxns) {
+    this.cardSelected;
     this.transactionClicked.emit(selectedTxn);
   }
 
