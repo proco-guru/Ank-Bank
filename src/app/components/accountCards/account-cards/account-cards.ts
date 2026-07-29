@@ -12,33 +12,34 @@ import {
   CustomerService,
 } from '../../../services/customerService/customer-service';
 import { FormsModule } from '@angular/forms';
-import { AccountSummaryCard } from '../../account-summary-card/account-summary-card';
+import { AccountSummaryCard } from '../../../shared/components/account-summary-card/account-summary-card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../../services/tansactionService/transaction-service';
 import { Subscription } from 'rxjs';
+import { AmountTxns, BankAccount } from '../../../model/bankAcc.model';
 
-// This interface defines the shape of our account data
-// Exactly like a DTO in your .NET backend
-export interface BankAccount {
-  accountNumber: string;
-  holderName: string;
-  balance: number;
-  accountType: 'Savings' | 'Current' | 'Salary';
-  ifscCode: string;
-  isActive: boolean;
-  lastUpdated: Date;
-}
+// // This interface defines the shape of our account data
+// // Exactly like a DTO in your .NET backend
+// export interface BankAccount {
+//   accountNumber: string;
+//   holderName: string;
+//   balance: number;
+//   accountType: 'Savings' | 'Current' | 'Salary';
+//   ifscCode: string;
+//   isActive: boolean;
+//   lastUpdated: Date;
+// }
 
-export interface AmountTxns {
-  txnId: number;
-  senderAccNumber: string;
-  beneAccNumber: string;
-  beneName: string;
-  amount: number;
-  ifscCode: string;
-  txnDate: Date;
-  status: 'SUCCESS' | 'PENDING' | 'FAILED';
-}
+// export interface AmountTxns {
+//   txnId: number;
+//   senderAccNumber: string;
+//   beneAccNumber: string;
+//   beneName: string;
+//   amount: number;
+//   ifscCode: string;
+//   txnDate: Date;
+//   status: 'SUCCESS' | 'PENDING' | 'FAILED';
+// }
 
 @Component({
   selector: 'app-account-cards',

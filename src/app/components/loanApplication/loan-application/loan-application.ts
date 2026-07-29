@@ -1,6 +1,6 @@
 import { Component, numberAttribute, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { noSpecialCharactersValidator } from '../../../customValidators/custom-validators';
+import { noSpecialCharactersValidator } from '../../../shared/customValidators/custom-validators';
 import { Subscription } from 'rxjs';
 import { LoanService } from '../../../services/loanService/loan-service';
 import { CommonModule } from '@angular/common';

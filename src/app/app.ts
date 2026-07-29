@@ -4,27 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Layout } from './components/layouts/layout/layout';
 import { Observable } from 'rxjs';
-import { Loading } from './services/loading/loading';
-// import { AccountCards } from './components/account-cards/account-cards';
-// import { FundTransfer } from './components/fund-transfer/fund-transfer';
-// import { TransactionHistory } from './components/transaction-history/transaction-history';
-// import { AccountBalanceWidget } from './components/account-balance-widget/account-balance-widget';
-// import { Customers } from './components/customers/customers';
+import { Loading } from './core/services/loading/loading';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    // AccountCards,
-    // FundTransfer,
-    // FormsModule,
-    // TransactionHistory,
-    // AccountBalanceWidget,
-    // Customers,
-    CommonModule,
-    FormsModule,
-    RouterOutlet,
-    Layout,
-  ],
+  imports: [CommonModule, FormsModule, RouterOutlet, Layout],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

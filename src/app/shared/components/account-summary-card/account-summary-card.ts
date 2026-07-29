@@ -7,10 +7,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { AmountTxns, BankAccount } from '../accountCards/account-cards/account-cards';
 import { CommonModule } from '@angular/common';
 import { MaskedAccountPipe } from '../../pipes/masked-account-pipe-pipe';
 import { Router } from '@angular/router';
+import { AmountTxns, BankAccount } from '../../../model/bankAcc.model';
 
 @Component({
   selector: 'app-account-summary-card',

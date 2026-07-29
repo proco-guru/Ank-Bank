@@ -1,12 +1,10 @@
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
-import {
-  BeneficiaryModel,
-  BeneficiaryService,
-} from '../../../services/beneficiaryService/beneficiary-service';
+import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { BeneficiaryModel } from '../../../model/beneficiary.model';
+import { BeneficiaryService } from '../../../services/beneficiaryService/beneficiary-service';
 
 @Component({
   selector: 'app-beneficiary-search',

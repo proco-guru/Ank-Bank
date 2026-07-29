@@ -5,7 +5,7 @@ import {
   accountNotSameValidator,
   ifscValidator,
   noSpecialCharactersValidator,
-} from '../../customValidators/custom-validators';
+} from '../../shared/customValidators/custom-validators';
 import { CommonModule } from '@angular/common';
 
 @Component({
